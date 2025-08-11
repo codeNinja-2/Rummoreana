@@ -1,11 +1,11 @@
-This is a description of messages passed between Arena and Player processes.
+This is a description of messages passed between the Arena and Bots.
 
 * Messages consist of space-separated components.
 * Cards are specified with a rank (A, 2, …, 9, J, Q, K) and suit (H, C, D, S), e.g. 8H.
 
-The Arena first tells each Player about the starting state of the game:
+The Arena first tells each Bot about the starting state of the game:
 
-**start [# of players] [# preceding recipient] [initial discard] [Player's hand]**
+**start [# of players] [# players preceding this Bot] [initial discard] [Bot's hand]**
 
 For example, this start message:
 
@@ -13,25 +13,25 @@ For example, this start message:
 
 means:
 
-* There are 3 Players in the game.
-* 1 Player precedes the recipient in the order of play.
+* There are 3 players in the game.
+* 1 player precedes this Bot in the order of play.
 * The discard pile initially contains the 9 of diamonds.
-* The recipient's hand consists of the 8 of hearts, 2 of spades, 5 of spades, etc.
-* All other Players get an equal number of cards, which are unknown to the recipient.
+* This Bot's hand consists of the 8 of hearts, 2 of spades, 5 of spades, etc.
+* All other players get an equal number of cards, which are unknown to this Bot.
 
-The Arena then cycles through Players.  At the beginning of a Player's turn, the Arena sends
-this message to every Player:
+The Arena then cycles through Bots.  At the beginning of one Bot's turn, the Arena sends
+this message to every Bot:
 
-**player [player number]**
+**turn [player number]**
 
-The specified Player responds by giving the number of cards taken from the discard pile.
+The specified Bot responds by giving the number of cards taken from the discard pile.
 
 **take [number of cards from discard pile]**
 
-If this number is zero ("take 0"), then the Player takes one face-down card from the draw
-pile instead.  The Arena responds to the Player with the drawn card, e.g. QS.
+If this number is zero ("take 0"), then the Bot wants one face-down card from the draw
+pile instead.  In this case, the Arena responds to the Bot with the drawn card, e.g. QS.
 
-Next, the Player lays down scoring cards with zero or more messages of two forms:
+Next, the Bot lays down scoring cards with zero or more messages of two forms:
 
 **run [card]...**
 
@@ -46,13 +46,13 @@ then the latter is assumed.
 Similarly, a set may consist of 3 or 4 standalone cards (e.g. 4H 4D 4S) or one
 card appened to a previously played set of three.
 
-Finally, the Player discards (unless the game is over):
+Finally, the Bot discards (unless the game is over):
 
 **discard [card]**
 
-Every command sent from a Player to the Arena is forwarded verbatim to every other Player.
+Every command sent from a Bot to the Arena is forwarded verbatim to every other Bot.
 
 When the game ends (whether due to victory or for some other reason), the Arena notifies
-all players, causing them to shut down:
+all Bots, causing them to shut down:
 
 **gameover**
