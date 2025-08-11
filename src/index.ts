@@ -41,6 +41,6 @@ class Card {
     }
 
     getValue(): number {
-        return cardValues.get(this.rank)
+        return cardValues.get(this.rank);
     }
 }
