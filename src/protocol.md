@@ -2,7 +2,6 @@ This is a description of messages passed between Arena and Player processes.
 
 * Messages consist of space-separated components.
 * Cards are specified with a rank (A, 2, …, 9, J, Q, K) and suit (H, C, D, S), e.g. 8H.
-* Unknown cards are specified with a ?.
 
 The Arena first tells each Player about the starting state of the game:
 
@@ -35,6 +34,7 @@ pile instead.  The Arena responds to the Player with the drawn card, e.g. QS.
 Next, the Player lays down scoring cards with zero or more messages of two forms:
 
 **run [card]...**
+
 **set [card]...**
 
 A run may be a standalone sequence of three or more cards (e.g. 4H 5H 6H 7H) or a sequence
