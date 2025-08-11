@@ -9,12 +9,12 @@ export class Player {
     hand : Set<Card>;
     index : number;
 
-    constructor(game : Game, name : string, hand : Card[]) {
+    constructor(game : Game, name : string) {
         this.game = game;
         this.name = name;
         this.points = 0;
         this.hand = new Set<Card>();
-        // Let this.index be the number of players already in the Game.
+        this.index = game.players.length;
     }
 
     addCardToHand(card : Card) {
